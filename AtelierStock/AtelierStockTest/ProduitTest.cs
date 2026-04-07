@@ -45,6 +45,37 @@ namespace AtelierStock
             Assert.Throws<ArgumentException>(act);
         }
 
+        [TestMethod]
+        public void Sortir_QuantiteNormale_MetAJourLeStock()
+        {
+            // Arrange
+            var p = new Produit("REF", "Nom", 10.0m, 0.1m);
+            p.Rentrer(15);
+
+            // Act
+            var quantiteRetiree = p.Sortir(5);
+
+            // Assert
+            Assert.AreEqual(5, quantiteRetiree);
+            Assert.AreEqual(10, p.Stocks);
+            Assert.IsFalse(p.EstEnRupture);
+        }
+
+        [TestMethod]
+        public void Sortir_QuantiteSuperieureAuStock_VideLeStockEtRetourneLeReste()
+        {
+            // Arrange
+            var p = new Produit("REF", "Nom", 10.0m, 0.1m);
+            p.Rentrer(5);
+
+            // Act
+            var quantiteRetiree = p.Sortir(10);
+
+            // Assert
+            Assert.AreEqual(5, quantiteRetiree); // Seulement 5 ont pu être retirés
+            Assert.AreEqual(0, p.Stocks);
+            Assert.IsTrue(p.EstEnRupture);
+        }
 
     }
 }

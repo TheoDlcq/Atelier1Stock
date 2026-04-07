@@ -19,7 +19,7 @@
         public string Reference => reference;
         public string Libelle => libelle;
         public int Stocks => stocks; // { get { return stocks; } }
-        public decimal PrixVente => prixAchat * pourcentageMarge;
+        public decimal PrixVente => prixAchat * (1 + pourcentageMarge);
         public decimal PrixAchat => prixAchat;
         #endregion
 
@@ -41,7 +41,7 @@
             stocks += quantite;
         }
 
-        public bool EstEnRupture => stocks == 0;
+        public bool EstEnRupture => stocks <= 0;
 
         #endregion
 

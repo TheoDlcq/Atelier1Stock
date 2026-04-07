@@ -32,8 +32,10 @@
         /// <returns>Valeur réellement retirée inférieure (rupture) ou égale à la quantité</returns>
         public int Sortir(int quantite)
         {
-            stocks -= quantite;
-            return quantite;
+            // On calcule ce qu'on peut vraiment sortir par rapport au stock actuel
+            int quantiteSortie = quantite > stocks ? stocks : quantite;
+            stocks -= quantiteSortie;
+            return quantiteSortie;
         }
 
         public void Rentrer(int quantite)
